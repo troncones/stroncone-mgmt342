@@ -89,6 +89,68 @@
             margin-bottom: 10px;
         }
 
+        .value-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .value-card {
+            border: 1px solid #ede1da;
+            border-radius: 10px;
+            background: #fffefd;
+            overflow: hidden;
+        }
+
+        .value-card summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #4a3428;
+        }
+
+        .value-card summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .value-card summary:hover {
+            color: #6b5d54;
+        }
+
+        .value-card summary:focus-visible {
+            outline: 2px solid #4a3428;
+            outline-offset: 3px;
+        }
+
+        .value-card .chevron {
+            flex-shrink: 0;
+            font-size: 1.4rem;
+            color: #f4c9d6;
+            transition: transform 0.25s ease, color 0.25s ease;
+        }
+
+        .value-card[open] .chevron {
+            transform: rotate(90deg);
+            color: #4a3428;
+        }
+
+        .value-card[open] summary {
+            border-bottom: 1px solid #f4e8ee;
+        }
+
+        .value-card p {
+            margin: 0;
+            padding: 16px 20px 20px;
+            font-size: 1.05rem;
+        }
+
         a {
             color: #4a3428;
             text-decoration: none;
@@ -160,12 +222,30 @@
 
         <div class="section">
             <h2>Where I Add Value</h2>
-            <ul>
-                <li>A first generation perspective that treats financial literacy as something worth building, not assumed</li>
-                <li>Working French and Italian, plus business connections across five countries, brought to how I read cross-cultural markets</li>
-                <li>Selected for the Xavier NEXT AI at Work cohort, studying how artificial intelligence is changing finance and organizations under Professor Jarrod Humphrey</li>
-                <li>Real experience turning a brand's voice into engagement, the same skill markets need from anyone explaining what the numbers mean</li>
-            </ul>
+            <p>Click a card to see the story behind it.</p>
+            <div class="value-cards">
+                <details class="value-card">
+                    <summary>
+                        <span>Founding President, Xavier University Frontier Labs</span>
+                        <span class="chevron">&rsaquo;</span>
+                    </summary>
+                    <p>I lead student built verticals that integrate AI chatbot services into daily university operations and create the marketing content behind the lab's work.</p>
+                </details>
+                <details class="value-card">
+                    <summary>
+                        <span>Chief Technology Officer, Xavier University Investment Club</span>
+                        <span class="chevron">&rsaquo;</span>
+                    </summary>
+                    <p>I create the content and reels for the club's Instagram and keep the line of communication open with guest speakers, the same skill of making a complex idea land with an audience that finance needs from anyone explaining what the numbers mean.</p>
+                </details>
+                <details class="value-card">
+                    <summary>
+                        <span>Selected for the Xavier NEXT AI at Work Cohort</span>
+                        <span class="chevron">&rsaquo;</span>
+                    </summary>
+                    <p>Chosen for the program's inaugural AI at Work track under Professor Jarrod Humphrey, studying how artificial intelligence is changing work, careers, and organizations. I'm continuing that work this fall in Managing AI and Emerging Technologies, taught alongside an ex-Google software engineer.</p>
+                </details>
+            </div>
         </div>
 
         <div class="section">
