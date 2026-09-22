@@ -163,6 +163,10 @@
             border: none;
         }
 
+        .podcast-embed-spaced {
+            margin-top: 14px;
+        }
+
         .resume-embed {
             border: 1px solid #ede1da;
             border-radius: 12px;
@@ -183,6 +187,43 @@
             margin-bottom: 0;
             font-size: 0.95rem;
             color: #6b5d54;
+        }
+
+        .post-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .post-card {
+            border: 1px solid #ede1da;
+            border-radius: 12px;
+            background: #fdfdfd;
+            padding: 20px;
+        }
+
+        .post-meta {
+            font-size: 0.85rem;
+            color: #6b5d54;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .post-excerpt {
+            font-size: 1.02rem;
+            margin-bottom: 10px;
+        }
+
+        .post-stats {
+            font-size: 0.88rem;
+            color: #6b5d54;
+            margin-bottom: 14px;
+        }
+
+        .post-card .connect-btn {
+            padding: 10px 20px;
+            font-size: 0.92rem;
         }
 
         .linkedin-card {
@@ -342,6 +383,9 @@
             <div class="podcast-embed">
                 <iframe src="https://open.spotify.com/embed/show/5Y1NyT6srGx38f5LINbH6c?utm_source=generator&theme=0" width="100%" height="152" frameborder="0" allowfullscreen loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="Moonshots with Peter Diamandis on Spotify"></iframe>
             </div>
+            <div class="podcast-embed podcast-embed-spaced">
+                <iframe src="https://open.spotify.com/embed/show/3mliji9352UAk3XnWElnDV?utm_source=generator&theme=0" width="100%" height="152" frameborder="0" allowfullscreen loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="My First Million on Spotify"></iframe>
+            </div>
         </div>
 
         <div class="section">
@@ -380,6 +424,30 @@
             <p class="resume-fallback">
                 If the preview above does not display cleanly on your device, <a href="files/Sofia-Troncone-Resume.pdf" target="_blank" rel="noopener noreferrer">open the resume directly</a>.
             </p>
+        </div>
+
+        <div class="section">
+            <h2>Recent Posts</h2>
+            <div class="post-cards">
+                <div class="post-card">
+                    <p class="post-meta">Posted 4 months ago, edited</p>
+                    <p class="post-excerpt">Reflecting on Accounting 201's discussion of incentivization, I traced it back to Henry Ford inventing the weekend to keep factory workers motivated. As AI lets productivity run around the clock, that old incentive is disappearing, and the nontraditional career path I never felt drawn to might be where the shift is heading.</p>
+                    <p class="post-stats">13 reactions &middot; 1,385 impressions</p>
+                    <a class="connect-btn" href="https://www.linkedin.com/in/sofiatroncone/recent-activity/all/" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.44-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM3.56 20.45h3.56V9H3.56v11.45Z"/></svg>
+                        <span>Read on LinkedIn</span>
+                    </a>
+                </div>
+                <div class="post-card">
+                    <p class="post-meta">Posted 4 months ago</p>
+                    <p class="post-excerpt">Selected for the Xavier NEXT AI at Work Program Track under Professor Jarrod Humphrey. Looking ahead to Managing AI and Emerging Technologies this fall, taught alongside an ex-Google software engineer.</p>
+                    <p class="post-stats">30 reactions &middot; 10 comments &middot; 1,116 impressions</p>
+                    <a class="connect-btn" href="https://www.linkedin.com/in/sofiatroncone/recent-activity/all/" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.44-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM3.56 20.45h3.56V9H3.56v11.45Z"/></svg>
+                        <span>Read on LinkedIn</span>
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div class="section">
