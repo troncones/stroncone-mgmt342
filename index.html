@@ -39,6 +39,26 @@
             font-size: 2.5rem;
         }
 
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            margin-bottom: 10px;
+        }
+
+        .profile-header h1 {
+            margin-bottom: 6px;
+        }
+
+        .headshot {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        }
+
         .subtitle {
             color: #6b5d54;
             margin-bottom: 30px;
@@ -100,13 +120,28 @@
             p {
                 font-size: 1rem;
             }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .headshot {
+                width: 100px;
+                height: 100px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Sofia J Troncone</h1>
-        <p class="subtitle">Finance Student, Xavier University</p>
+        <div class="profile-header">
+            <img src="images/headshot.jpg" alt="Portrait of Sofia J Troncone" class="headshot">
+            <div>
+                <h1>Sofia J Troncone</h1>
+                <p class="subtitle">Finance Student, Xavier University</p>
+            </div>
+        </div>
 
         <p>
             Financial markets reward whoever reads uncertainty first, and that challenge is what pulled me into finance. What holds my attention most is not just the data behind a price move, but the intersection of communicators: the analysts, economists, and cross-cultural voices whose words decide how people act on that data. As a first generation college student with working French and Italian, and connections spanning five countries, I read that intersection through a multicultural lens most of my peers do not have. I look for what a working analyst looks for: evaluate the information, decide under pressure, and understand how that decision moves a person or a business toward its goal.
