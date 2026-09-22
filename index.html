@@ -151,10 +151,23 @@
             font-size: 1.05rem;
         }
 
+        .podcast-embed {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        .podcast-embed iframe {
+            display: block;
+            width: 100%;
+            border: none;
+        }
+
         .resume-embed {
             border: 1px solid #ede1da;
-            border-radius: 10px;
-            overflow: hidden;
+            border-radius: 12px;
+            background: #fdfdfd;
+            padding: 14px;
         }
 
         .resume-viewer {
@@ -162,6 +175,7 @@
             width: 100%;
             height: 700px;
             border: none;
+            border-radius: 6px;
         }
 
         .resume-fallback {
@@ -276,6 +290,9 @@
             <p>
                 The people who move markets are usually the ones who can explain them well. I follow Peter Diamandis' Moonshots podcast for exactly that reason: hearing entrepreneurs and industry leaders explain their own thinking teaches me more about how ideas travel from a boardroom to a balance sheet than any textbook could. Markets do not just move on data. They move on the people communicating what the data means, across languages and across cultures, and that intersection is where I spend most of my attention.
             </p>
+            <div class="podcast-embed">
+                <iframe src="https://open.spotify.com/embed/show/5Y1NyT6srGx38f5LINbH6c?utm_source=generator&theme=0" width="100%" height="152" frameborder="0" allowfullscreen loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="Moonshots with Peter Diamandis on Spotify"></iframe>
+            </div>
         </div>
 
         <div class="section">
@@ -307,19 +324,12 @@
         </div>
 
         <div class="section">
-            <h2>Further Reading</h2>
-            <ul>
-                <li><a href="/xfl.html">The XFL</a></li>
-            </ul>
-        </div>
-
-        <div class="section">
             <h2>Resume</h2>
             <div class="resume-embed">
-                <embed src="files/Sofia-Troncone-Resume.pdf" type="application/pdf" class="resume-viewer">
+                <embed src="files/Sofia-Troncone-Resume.pdf#toolbar=0&navpanes=0&scrollbar=0" type="application/pdf" class="resume-viewer">
             </div>
             <p class="resume-fallback">
-                If the preview above does not load on your device, <a href="files/Sofia-Troncone-Resume.pdf" target="_blank" rel="noopener noreferrer">open the resume directly</a>.
+                If the preview above does not display cleanly on your device, <a href="files/Sofia-Troncone-Resume.pdf" target="_blank" rel="noopener noreferrer">open the resume directly</a>.
             </p>
         </div>
 
