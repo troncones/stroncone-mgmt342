@@ -151,6 +151,60 @@
             font-size: 1.05rem;
         }
 
+        .resume-embed {
+            border: 1px solid #ede1da;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .resume-viewer {
+            display: block;
+            width: 100%;
+            height: 700px;
+            border: none;
+        }
+
+        .resume-fallback {
+            margin-top: 12px;
+            margin-bottom: 0;
+            font-size: 0.95rem;
+            color: #6b5d54;
+        }
+
+        .connect-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        .connect-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border-radius: 999px;
+            background: #4a3428;
+            color: #ffffff;
+            text-decoration: none;
+            border-bottom: none;
+            font-size: 1rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .connect-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        .connect-btn:hover {
+            background: #6b5d54;
+            color: #ffffff;
+            border-bottom: none;
+        }
+
         a {
             color: #4a3428;
             text-decoration: none;
@@ -191,6 +245,10 @@
             .headshot {
                 width: 100px;
                 height: 100px;
+            }
+
+            .resume-viewer {
+                height: 480px;
             }
         }
     </style>
@@ -253,6 +311,30 @@
             <ul>
                 <li><a href="/xfl.html">The XFL</a></li>
             </ul>
+        </div>
+
+        <div class="section">
+            <h2>Resume</h2>
+            <div class="resume-embed">
+                <embed src="files/Sofia-Troncone-Resume.pdf" type="application/pdf" class="resume-viewer">
+            </div>
+            <p class="resume-fallback">
+                If the preview above does not load on your device, <a href="files/Sofia-Troncone-Resume.pdf" target="_blank" rel="noopener noreferrer">open the resume directly</a>.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Connect</h2>
+            <div class="connect-links">
+                <a class="connect-btn" href="https://www.linkedin.com/in/sofiatroncone" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.44-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM3.56 20.45h3.56V9H3.56v11.45Z"/></svg>
+                    <span>LinkedIn</span>
+                </a>
+                <a class="connect-btn" href="mailto:troncones@xavier.edu">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13Zm2.2.5 7.8 6.2 7.8-6.2H4.2ZM20 7.3l-7.4 5.9a1 1 0 0 1-1.2 0L4 7.3v11.2h16V7.3Z"/></svg>
+                    <span>troncones@xavier.edu</span>
+                </a>
+            </div>
         </div>
 
         <div class="footer">
