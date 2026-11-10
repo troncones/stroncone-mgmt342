@@ -18,6 +18,9 @@
             --muted: #6b5d54;
             --pink: #f4c9d6;
             --line: #ede1da;
+            --sand: #f6efe8;
+            --taupe: #ecdfd3;
+            --gold: #b8976a;
             --serif: 'Playfair Display', Georgia, serif;
             --sans: 'Lato', Helvetica, Arial, sans-serif;
             --wrap: 1000px;
@@ -162,7 +165,7 @@
         /* Hero chart line */
         .hero-chart { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 220px; pointer-events: none; }
         .hero-chart .area { fill: url(#chartFill); }
-        .hero-chart .line { fill: none; stroke: var(--brown); stroke-opacity: 0.18; stroke-width: 1.5; stroke-dasharray: 2600; stroke-dashoffset: 2600; animation: draw 3.2s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards; }
+        .hero-chart .line { fill: none; stroke: var(--gold); stroke-opacity: 0.55; stroke-width: 1.5; stroke-dasharray: 2600; stroke-dashoffset: 2600; animation: draw 3.2s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards; }
         .hero-chart .dot { fill: var(--pink); opacity: 0; animation: pop 0.6s ease 3.4s forwards; }
         @keyframes draw { to { stroke-dashoffset: 0; } }
         @keyframes pop { to { opacity: 1; } }
@@ -176,17 +179,26 @@
             content: "";
             position: absolute; left: 165px; top: 34px;
             width: 11px; height: 11px; border-radius: 50%;
-            background: var(--white); border: 2px solid var(--pink);
+            background: var(--white); border: 2px solid var(--gold);
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
         .t-item:hover::after { background: var(--brown); border-color: var(--brown); transform: scale(1.2); }
         .t-item .role { margin-left: 34px; }
-        .tag { display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brown); background: rgba(244, 201, 214, 0.45); padding: 4px 10px; border-radius: 999px; margin-bottom: 14px; }
+        .tag { display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brown); background: var(--taupe); padding: 4px 10px; border-radius: 999px; margin-bottom: 14px; }
 
         /* ---------- Sections ---------- */
         section.block { padding: 110px 0 0; }
         .section-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: 36px; }
-        .section-num { font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--pink); filter: brightness(0.82); }
+        .section-num { font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--gold); }
+        section.block.band {
+            margin-top: 110px;
+            padding: 90px 0;
+            background: var(--sand);
+            box-shadow: 0 0 0 100vmax var(--sand);
+            clip-path: inset(0 -100vmax);
+        }
+        .band .section-head::after { background: var(--taupe); }
+        .band + section.block { padding-top: 110px; }
         .section-head h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(2rem, 4vw, 2.6rem); color: var(--brown); line-height: 1.15; }
         .section-head::after { content: ""; flex: 1; height: 1px; background: var(--line); align-self: center; }
         .intro { font-size: 1.15rem; max-width: 40em; margin-bottom: 30px; }
@@ -278,18 +290,49 @@
 
         footer { text-align: center; color: var(--muted); font-size: 0.85rem; letter-spacing: 0.06em; padding: 50px 0 60px; }
 
+        /* ---------- Interactive touches ---------- */
+        /* 1. Card tilt */
+        .role {
+            transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--ty, 0px));
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+        .role:hover { --ty: -6px; transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--ty)); }
+        .role.tilting { transition: transform 0.12s ease-out, box-shadow 0.35s ease, border-color 0.35s ease; }
+        .role-shine {
+            position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+            background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 55%);
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .role:hover .role-shine { opacity: 1; }
+
+        /* 2. Cursor glow */
+        .hero-glow {
+            position: absolute; left: 0; top: 0;
+            width: 520px; height: 520px; margin: -260px 0 0 -260px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(184, 151, 106, 0.20) 0%, rgba(244, 201, 214, 0.16) 35%, rgba(244, 201, 214, 0) 70%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            will-change: transform;
+        }
+        .hero:hover .hero-glow { opacity: 1; }
+
         /* ---------- Motion ---------- */
-        .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
+        .reveal { opacity: 0; transform: translateY(10px); transition: opacity 0.6s ease, transform 0.6s ease; }
         .reveal.in { opacity: 1; transform: none; }
-        .reveal.d1 { transition-delay: 0.12s; }
-        .reveal.d2 { transition-delay: 0.24s; }
-        .reveal.d3 { transition-delay: 0.36s; }
+        .reveal.d1 { transition-delay: 0.06s; }
+        .reveal.d2 { transition-delay: 0.12s; }
+        .reveal.d3 { transition-delay: 0.18s; }
+        .hero .reveal { opacity: 1; transform: none; transition: none; }
 
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
             .reveal { opacity: 1; transform: none; transition: none; }
             .role, .btn, .role::before { transition: none; }
             .hero-chart .line { animation: none; stroke-dashoffset: 0; }
+            .hero-glow { display: none; }
         }
 
         /* ---------- Responsive ---------- */
@@ -338,10 +381,11 @@
     </nav>
 
     <header class="hero" id="top">
+        <div class="hero-glow" id="hero-glow" aria-hidden="true"></div>
         <div class="wrap">
             <div>
                 <p class="eyebrow reveal">Finance &middot; Xavier University</p>
-                <h1 class="reveal d1">Sofia J<br><em>Troncone</em></h1>
+                <h1 id="hero-name" aria-label="Sofia J Troncone">Sofia J<br><em>Troncone</em></h1>
                 <p class="hero-lede reveal d2">
                     First-generation finance student with working French and Italian, building experience where finance meets AI.
                 </p>
@@ -448,7 +492,7 @@
             </div>
         </section>
 
-        <section class="block" id="voices">
+        <section class="block band" id="voices">
             <div class="section-head reveal">
                 <span class="section-num">02</span>
                 <h2>Top Voices</h2>
@@ -477,7 +521,7 @@
             </div>
         </section>
 
-        <section class="block" id="posts">
+        <section class="block band" id="posts">
             <div class="section-head reveal">
                 <span class="section-num">04</span>
                 <h2>Recent Posts</h2>
@@ -536,6 +580,52 @@
                 });
             }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
             items.forEach(function (el) { io.observe(el); });
+        })();
+
+        (function () {
+            var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+            if (reduce || !finePointer) return;
+
+            // 1. Card tilt
+            document.querySelectorAll('.role').forEach(function (card) {
+                var shine = document.createElement('span');
+                shine.className = 'role-shine';
+                card.appendChild(shine);
+                card.addEventListener('mousemove', function (e) {
+                    var r = card.getBoundingClientRect();
+                    var x = (e.clientX - r.left) / r.width;
+                    var y = (e.clientY - r.top) / r.height;
+                    card.classList.add('tilting');
+                    card.style.setProperty('--ry', ((x - 0.5) * 6).toFixed(2) + 'deg');
+                    card.style.setProperty('--rx', ((0.5 - y) * 6).toFixed(2) + 'deg');
+                    card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+                    card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+                });
+                card.addEventListener('mouseleave', function () {
+                    card.classList.remove('tilting');
+                    card.style.setProperty('--rx', '0deg');
+                    card.style.setProperty('--ry', '0deg');
+                });
+            });
+
+            // 3. Cursor glow in hero
+            var hero = document.getElementById('top');
+            var glow = document.getElementById('hero-glow');
+            var tx = 0, ty = 0, cx = 0, cy = 0, running = false;
+            function tick() {
+                cx += (tx - cx) * 0.12;
+                cy += (ty - cy) * 0.12;
+                glow.style.transform = 'translate(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px)';
+                if (Math.abs(tx - cx) > 0.5 || Math.abs(ty - cy) > 0.5) { requestAnimationFrame(tick); } else { running = false; }
+            }
+            hero.addEventListener('mousemove', function (e) {
+                var r = hero.getBoundingClientRect();
+                tx = e.clientX - r.left;
+                ty = e.clientY - r.top;
+                if (!running) { running = true; requestAnimationFrame(tick); }
+            });
         })();
     </script>
 </body>
