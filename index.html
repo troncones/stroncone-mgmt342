@@ -3,463 +3,540 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me | Sofia Troncone</title>
+    <title>Sofia Troncone | Finance, Xavier University</title>
+    <meta name="description" content="Sofia J Troncone, finance student at Xavier University.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --white: #ffffff;
+            --soft-white: #fdfdfd;
+            --cream: #faf6f3;
+            --brown: #4a3428;
+            --ink: #2b2b2b;
+            --muted: #6b5d54;
+            --pink: #f4c9d6;
+            --line: #ede1da;
+            --serif: 'Playfair Display', Georgia, serif;
+            --sans: 'Lato', Helvetica, Arial, sans-serif;
+            --wrap: 1000px;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
         body {
-            font-family: 'Lato', Helvetica, Arial, sans-serif;
+            font-family: var(--sans);
             font-weight: 300;
-            background-color: #fdfdfd;
-            color: #2b2b2b;
+            background: var(--soft-white);
+            color: var(--ink);
             line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 60px auto;
-            padding: 40px;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.06);
-        }
+        a { color: var(--brown); text-decoration: none; }
 
-        h1 {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-weight: 600;
-            color: #4a3428;
-            margin-bottom: 10px;
-            font-size: 2.5rem;
-        }
+        .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 32px; }
 
-        .profile-header {
+        /* ---------- Nav ---------- */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(253, 253, 253, 0.82);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .nav.scrolled { border-bottom-color: var(--line); box-shadow: 0 6px 24px rgba(74, 52, 40, 0.05); }
+        .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+        .nav-mark { font-family: var(--serif); font-weight: 600; font-size: 1.25rem; color: var(--brown); letter-spacing: 0.02em; }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a {
+            font-size: 0.82rem;
+            font-weight: 400;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding: 4px 0;
+            background-image: linear-gradient(var(--pink), var(--pink));
+            background-size: 0 1px;
+            background-position: 0 100%;
+            background-repeat: no-repeat;
+            transition: color 0.25s ease, background-size 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--brown); background-size: 100% 1px; }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(180deg, var(--cream) 0%, var(--soft-white) 100%);
+            padding: 110px 0 120px;
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 560px; height: 560px;
+            right: -140px; top: -180px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(244, 201, 214, 0.35) 0%, rgba(244, 201, 214, 0) 70%);
+            pointer-events: none;
+        }
+        .hero .wrap { display: grid; grid-template-columns: 1.4fr 1fr; gap: 60px; align-items: center; position: relative; }
+        .eyebrow {
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--muted);
             display: flex;
             align-items: center;
-            gap: 28px;
-            margin-bottom: 10px;
+            gap: 14px;
+            margin-bottom: 22px;
         }
-
-        .profile-header h1 {
-            margin-bottom: 6px;
-        }
-
-        .headshot {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            object-fit: cover;
-            flex-shrink: 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-        }
-
-        .subtitle {
-            color: #6b5d54;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-
-        .tagline {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-style: italic;
+        .eyebrow::before { content: ""; width: 36px; height: 1px; background: var(--pink); }
+        .hero h1 {
+            font-family: var(--serif);
             font-weight: 500;
-            color: #4a3428;
-            font-size: 1.4rem;
-            line-height: 1.4;
-            margin-bottom: 24px;
+            font-size: clamp(3rem, 7vw, 5.2rem);
+            line-height: 1.02;
+            color: var(--brown);
+            letter-spacing: -0.01em;
+            margin-bottom: 26px;
         }
+        .hero h1 em { font-style: italic; font-weight: 500; }
+        .hero-lede { font-size: 1.2rem; color: var(--ink); max-width: 30em; margin-bottom: 36px; }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
 
-        p {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-
-        .section {
-            margin-top: 40px;
-        }
-
-        h2 {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-weight: 600;
-            color: #4a3428;
-            margin-bottom: 15px;
-        }
-
-        ul {
-            padding-left: 20px;
-        }
-
-        li {
-            margin-bottom: 10px;
-        }
-
-        .value-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .value-card {
-            border: 1px solid #ede1da;
-            border-radius: 10px;
-            background: #fffefd;
-            overflow: hidden;
-        }
-
-        .value-card summary {
-            list-style: none;
-            cursor: pointer;
-            padding: 16px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-            font-family: 'Playfair Display', Georgia, serif;
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: #4a3428;
-        }
-
-        .value-card summary::-webkit-details-marker {
-            display: none;
-        }
-
-        .value-card summary:hover {
-            color: #6b5d54;
-        }
-
-        .value-card summary:focus-visible {
-            outline: 2px solid #4a3428;
-            outline-offset: 3px;
-        }
-
-        .value-card .chevron {
-            flex-shrink: 0;
-            font-size: 1.4rem;
-            color: #f4c9d6;
-            transition: transform 0.25s ease, color 0.25s ease;
-        }
-
-        .value-card[open] .chevron {
-            transform: rotate(90deg);
-            color: #4a3428;
-        }
-
-        .value-card[open] summary {
-            border-bottom: 1px solid #f4e8ee;
-        }
-
-        .value-card p {
-            margin: 0;
-            padding: 16px 20px 20px;
-            font-size: 1.05rem;
-        }
-
-        .podcast-embed {
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-        }
-
-        .podcast-embed iframe {
-            display: block;
-            width: 100%;
-            border: none;
-        }
-
-        .podcast-embed-spaced {
-            margin-top: 14px;
-        }
-
-        .resume-embed {
-            border: 1px solid #ede1da;
-            border-radius: 12px;
-            background: #fdfdfd;
-            padding: 14px;
-        }
-
-        .resume-viewer {
-            display: block;
-            width: 100%;
-            height: 700px;
-            border: none;
-            border-radius: 6px;
-        }
-
-        .resume-fallback {
-            margin-top: 12px;
-            margin-bottom: 0;
-            font-size: 0.95rem;
-            color: #6b5d54;
-        }
-
-        .post-embeds {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .linkedin-post-embed {
-            border: 1px solid #ede1da;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .linkedin-post-embed iframe {
-            display: block;
-            width: 100%;
-            border: none;
-        }
-
-        .linkedin-card {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            border: 1px solid #ede1da;
-            border-radius: 12px;
-            background: #fdfdfd;
-            padding: 20px;
-        }
-
-        .linkedin-card-photo {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            flex-shrink: 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-        }
-
-        .linkedin-card-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .linkedin-card-name {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-weight: 600;
-            color: #4a3428;
-            font-size: 1.2rem;
-            margin-bottom: 4px;
-        }
-
-        .linkedin-card-headline {
-            font-size: 0.98rem;
-            color: #2b2b2b;
-            margin-bottom: 6px;
-        }
-
-        .linkedin-card-stat {
-            font-size: 0.88rem;
-            color: #6b5d54;
-            margin-bottom: 14px;
-        }
-
-        .connect-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-top: 16px;
-        }
-
-        .connect-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 24px;
+        .btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 14px 28px;
             border-radius: 999px;
-            background: #4a3428;
-            color: #ffffff;
-            text-decoration: none;
-            border-bottom: none;
-            font-size: 1rem;
-            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 400;
+            letter-spacing: 0.03em;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+        }
+        .btn svg { width: 17px; height: 17px; fill: currentColor; flex-shrink: 0; }
+        .btn-solid { background: var(--brown); color: var(--white); box-shadow: 0 8px 22px rgba(74, 52, 40, 0.22); }
+        .btn-solid:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(74, 52, 40, 0.28); }
+        .btn-ghost { border: 1px solid var(--brown); color: var(--brown); }
+        .btn-ghost:hover { background: var(--brown); color: var(--white); transform: translateY(-2px); }
+
+        .portrait { position: relative; justify-self: center; width: min(320px, 100%); aspect-ratio: 4 / 5; }
+        .portrait::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            transform: translate(18px, 18px);
+            border: 1px solid var(--pink);
+            border-radius: 200px 200px 16px 16px;
+        }
+        .portrait img {
+            position: relative;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: 200px 200px 16px 16px;
+            box-shadow: 0 24px 60px rgba(74, 52, 40, 0.18);
         }
 
-        .connect-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-            flex-shrink: 0;
+        /* ---------- Facts strip ---------- */
+        .facts { margin-top: -48px; position: relative; z-index: 2; }
+        .facts-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 14px 44px rgba(74, 52, 40, 0.08);
         }
+        .fact { padding: 28px 30px; }
+        .fact + .fact { border-left: 1px solid var(--line); }
+        .fact-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+        .fact-text { font-family: var(--serif); font-size: 1.2rem; font-weight: 500; color: var(--brown); line-height: 1.3; }
+        .fact-sub { font-size: 0.9rem; color: var(--muted); margin-top: 2px; }
 
-        .connect-btn:hover {
-            background: #6b5d54;
-            color: #ffffff;
-            border-bottom: none;
+        /* Hero chart line */
+        .hero-chart { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 220px; pointer-events: none; }
+        .hero-chart .area { fill: url(#chartFill); }
+        .hero-chart .line { fill: none; stroke: var(--brown); stroke-opacity: 0.18; stroke-width: 1.5; stroke-dasharray: 2600; stroke-dashoffset: 2600; animation: draw 3.2s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards; }
+        .hero-chart .dot { fill: var(--pink); opacity: 0; animation: pop 0.6s ease 3.4s forwards; }
+        @keyframes draw { to { stroke-dashoffset: 0; } }
+        @keyframes pop { to { opacity: 1; } }
+
+        /* Timeline */
+        .timeline { position: relative; }
+        .timeline::before { content: ""; position: absolute; left: 170px; top: 10px; bottom: 10px; width: 1px; background: var(--line); }
+        .t-item { display: grid; grid-template-columns: 170px 1fr; position: relative; padding-bottom: 22px; }
+        .t-when { padding: 30px 34px 0 0; text-align: right; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+        .t-item::after {
+            content: "";
+            position: absolute; left: 165px; top: 34px;
+            width: 11px; height: 11px; border-radius: 50%;
+            background: var(--white); border: 2px solid var(--pink);
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
+        .t-item:hover::after { background: var(--brown); border-color: var(--brown); transform: scale(1.2); }
+        .t-item .role { margin-left: 34px; }
+        .tag { display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brown); background: rgba(244, 201, 214, 0.45); padding: 4px 10px; border-radius: 999px; margin-bottom: 14px; }
 
-        a {
-            color: #4a3428;
-            text-decoration: none;
-            border-bottom: 1px solid #f4c9d6;
+        /* ---------- Sections ---------- */
+        section.block { padding: 110px 0 0; }
+        .section-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: 36px; }
+        .section-num { font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--pink); filter: brightness(0.82); }
+        .section-head h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(2rem, 4vw, 2.6rem); color: var(--brown); line-height: 1.15; }
+        .section-head::after { content: ""; flex: 1; height: 1px; background: var(--line); align-self: center; }
+        .intro { font-size: 1.15rem; max-width: 40em; margin-bottom: 30px; }
+
+        /* Experience */
+        .roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+        .role {
+            position: relative;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 34px 28px 30px;
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
         }
-
-        a:hover {
-            color: #6b5d54;
-            border-bottom-color: #4a3428;
+        .role::before {
+            content: "";
+            position: absolute; left: 28px; right: 28px; top: 0;
+            height: 2px;
+            background: var(--pink);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
         }
+        .role:hover { transform: translateY(-6px); box-shadow: 0 22px 50px rgba(74, 52, 40, 0.10); border-color: transparent; }
+        .role:hover::before { transform: scaleX(1); }
+        .role-index { font-family: var(--serif); font-style: italic; color: var(--muted); font-size: 0.95rem; margin-bottom: 18px; }
+        .role h3 { font-family: var(--serif); font-weight: 600; font-size: 1.3rem; color: var(--brown); line-height: 1.3; margin-bottom: 6px; }
+        .role-org { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+        .role p { font-size: 1rem; }
 
-        .footer {
-            margin-top: 40px;
+        /* Podcasts */
+        .listen { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+        .embed-frame { border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(74, 52, 40, 0.08); }
+        .embed-frame iframe { display: block; width: 100%; border: none; }
+
+        /* Resume */
+        .resume-card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 14px 40px rgba(74, 52, 40, 0.06);
+        }
+        .resume-viewer { display: block; width: 100%; height: 760px; border: none; border-radius: 8px; }
+        .resume-actions { display: flex; justify-content: center; margin-top: 24px; }
+
+        /* Posts */
+        .posts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; align-items: start; }
+        .post-frame { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--white); }
+        .post-frame iframe { display: block; width: 100%; border: none; }
+        .post-link { display: inline-block; margin-top: 12px; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--pink); }
+        .post-link:hover { color: var(--brown); border-bottom-color: var(--brown); }
+
+        /* Connect */
+        .connect {
+            margin: 110px 0 0;
+            background: var(--brown);
+            color: var(--white);
+            border-radius: 24px;
+            padding: 70px 50px;
             text-align: center;
-            color: #6b5d54;
-            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .connect::before {
+            content: "";
+            position: absolute;
+            width: 420px; height: 420px;
+            left: -120px; bottom: -220px;
+            border-radius: 50%;
+            border: 1px solid rgba(244, 201, 214, 0.35);
+        }
+        .connect::after {
+            content: "";
+            position: absolute;
+            width: 300px; height: 300px;
+            right: -90px; top: -150px;
+            border-radius: 50%;
+            border: 1px solid rgba(244, 201, 214, 0.25);
+        }
+        .connect .eyebrow { justify-content: center; color: var(--pink); }
+        .connect h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(2rem, 4.5vw, 3rem); line-height: 1.15; margin-bottom: 16px; }
+        .connect p { color: rgba(255, 255, 255, 0.82); font-size: 1.1rem; max-width: 32em; margin: 0 auto 34px; }
+        .connect .hero-actions { justify-content: center; position: relative; z-index: 1; }
+        .connect .btn-solid { background: var(--white); color: var(--brown); box-shadow: none; }
+        .connect .btn-solid:hover { box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2); }
+        .connect .btn-ghost { border-color: rgba(255, 255, 255, 0.6); color: var(--white); }
+        .connect .btn-ghost:hover { background: var(--white); color: var(--brown); }
+
+        footer { text-align: center; color: var(--muted); font-size: 0.85rem; letter-spacing: 0.06em; padding: 50px 0 60px; }
+
+        /* ---------- Motion ---------- */
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
+        .reveal.in { opacity: 1; transform: none; }
+        .reveal.d1 { transition-delay: 0.12s; }
+        .reveal.d2 { transition-delay: 0.24s; }
+        .reveal.d3 { transition-delay: 0.36s; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .reveal { opacity: 1; transform: none; transition: none; }
+            .role, .btn, .role::before { transition: none; }
+            .hero-chart .line { animation: none; stroke-dashoffset: 0; }
         }
 
-        @media (max-width: 768px) {
-            .container {
-                margin: 20px;
-                padding: 25px;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            .tagline {
-                font-size: 1.15rem;
-            }
-
-            p {
-                font-size: 1rem;
-            }
-
-            .profile-header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .headshot {
-                width: 100px;
-                height: 100px;
-            }
-
-            .resume-viewer {
-                height: 480px;
-            }
-
-            .linkedin-card {
-                flex-direction: column;
-                text-align: center;
-            }
+        /* ---------- Responsive ---------- */
+        @media (max-width: 860px) {
+            .nav-links { display: none; }
+            .hero { padding: 70px 0 100px; }
+            .hero .wrap { grid-template-columns: 1fr; gap: 50px; text-align: center; }
+            .eyebrow { justify-content: center; }
+            .hero-lede { margin-left: auto; margin-right: auto; }
+            .hero-actions { justify-content: center; }
+            .portrait { width: 240px; grid-row: 1; }
+            .roles, .listen, .posts { grid-template-columns: 1fr; }
+            .facts-row { grid-template-columns: 1fr; }
+            .fact + .fact { border-left: none; border-top: 1px solid var(--line); }
+            .timeline::before { left: 6px; }
+            .t-item { grid-template-columns: 1fr; padding-left: 30px; }
+            .t-item::after { left: 1px; top: 6px; }
+            .t-when { text-align: left; padding: 0 0 10px; }
+            .t-when br { display: none; }
+            .t-item .role { margin-left: 0; }
+            .resume-viewer { height: 520px; }
+        }
+        @media (max-width: 560px) {
+            .wrap { padding: 0 16px; }
+            .facts-row { grid-template-columns: 1fr; }
+            .fact + .fact { border-left: none; border-top: 1px solid var(--line); }
+            section.block { padding-top: 80px; }
+            .section-head::after { display: none; }
+            .connect { padding: 54px 24px; border-radius: 18px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="profile-header">
-            <img src="images/headshot.jpg" alt="Portrait of Sofia J Troncone" class="headshot">
+
+    <nav class="nav" id="nav">
+        <div class="wrap">
+            <a class="nav-mark" href="#top">Sofia Troncone</a>
+            <ul class="nav-links">
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#voices">Top Voices</a></li>
+                <li><a href="#resume">Resume</a></li>
+                <li><a href="#posts">Posts</a></li>
+                <li><a href="#connect">Connect</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero" id="top">
+        <div class="wrap">
             <div>
-                <h1>Sofia J Troncone</h1>
-                <p class="subtitle">Finance Student, Xavier University</p>
-            </div>
-        </div>
-
-        <p class="tagline">A First-Generation Voice in Finance, Fluent in More Than Numbers.</p>
-
-        <p>
-            Financial markets reward whoever reads uncertainty first, and that challenge is what pulled me into finance. What holds my attention most is not just the data behind a price move, but the intersection of communicators: the analysts, economists, and cross-cultural voices whose words decide how people act on that data. As a first generation college student with working French and Italian, and connections spanning five countries, I read that intersection through a multicultural lens most of my peers do not have. I look for what a working analyst looks for: evaluate the information, decide under pressure, and understand how that decision moves a person or a business toward its goal.
-        </p>
-
-        <p>
-            Outside the classroom, the situations that test judgment fastest are rarely dramatic: a delayed shipment, a problem worth solving before it grows into a larger one. Those moments taught me to take initiative and stay level headed when the stakes rise. The same instincts, thinking clearly, communicating directly, and following through, are what the work in finance actually asks for.
-        </p>
-
-        <div class="section">
-            <h2>Voices I Follow</h2>
-            <p>
-                The people who move markets are usually the ones who can explain them well. I follow Peter Diamandis' Moonshots podcast for exactly that reason: hearing entrepreneurs and industry leaders explain their own thinking teaches me more about how ideas travel from a boardroom to a balance sheet than any textbook could. Markets do not just move on data. They move on the people communicating what the data means, across languages and across cultures, and that intersection is where I spend most of my attention.
-            </p>
-            <div class="podcast-embed">
-                <iframe src="https://open.spotify.com/embed/show/5Y1NyT6srGx38f5LINbH6c?utm_source=generator&theme=0" width="100%" height="152" frameborder="0" allowfullscreen loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="Moonshots with Peter Diamandis on Spotify"></iframe>
-            </div>
-            <div class="podcast-embed podcast-embed-spaced">
-                <iframe src="https://open.spotify.com/embed/show/3mliji9352UAk3XnWElnDV?utm_source=generator&theme=0" width="100%" height="152" frameborder="0" allowfullscreen loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="My First Million on Spotify"></iframe>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Where I Add Value</h2>
-            <p>Click a card to see the story behind it.</p>
-            <div class="value-cards">
-                <details class="value-card">
-                    <summary>
-                        <span>Founding President, Xavier University Frontier Labs</span>
-                        <span class="chevron">&rsaquo;</span>
-                    </summary>
-                    <p>I lead student built verticals that integrate AI chatbot services into daily university operations and create the marketing content behind the lab's work.</p>
-                </details>
-                <details class="value-card">
-                    <summary>
-                        <span>Chief Technology Officer, Xavier University Investment Club</span>
-                        <span class="chevron">&rsaquo;</span>
-                    </summary>
-                    <p>I create the content and reels for the club's Instagram and keep the line of communication open with guest speakers, the same skill of making a complex idea land with an audience that finance needs from anyone explaining what the numbers mean.</p>
-                </details>
-                <details class="value-card">
-                    <summary>
-                        <span>Selected for the Xavier NEXT AI at Work Cohort</span>
-                        <span class="chevron">&rsaquo;</span>
-                    </summary>
-                    <p>Chosen for the program's inaugural AI at Work track under Professor Jarrod Humphrey, studying how artificial intelligence is changing work, careers, and organizations. I'm continuing that work this fall in Managing AI and Emerging Technologies, taught alongside an ex-Google software engineer.</p>
-                </details>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Resume</h2>
-            <div class="resume-embed">
-                <embed src="files/Sofia-Troncone-Resume.pdf#toolbar=0&navpanes=0&scrollbar=0" type="application/pdf" class="resume-viewer">
-            </div>
-            <p class="resume-fallback">
-                If the preview above does not display cleanly on your device, <a href="files/Sofia-Troncone-Resume.pdf" target="_blank" rel="noopener noreferrer">open the resume directly</a>.
-            </p>
-        </div>
-
-        <div class="section">
-            <h2>Recent Posts</h2>
-            <div class="post-embeds">
-                <div class="linkedin-post-embed">
-                    <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7463357477745631232" height="620" width="100%" frameborder="0" allowfullscreen loading="lazy" title="Sofia Troncone's LinkedIn post on incentivization and the future of work"></iframe>
-                </div>
-                <div class="linkedin-post-embed">
-                    <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7458191680043814912" height="750" width="100%" frameborder="0" allowfullscreen loading="lazy" title="Sofia Troncone's LinkedIn post on the Xavier NEXT AI at Work cohort"></iframe>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Connect</h2>
-            <div class="linkedin-card">
-                <img src="images/headshot.jpg" alt="Portrait of Sofia J Troncone" class="linkedin-card-photo">
-                <div class="linkedin-card-info">
-                    <p class="linkedin-card-name">Sofia J. Troncone</p>
-                    <p class="linkedin-card-headline">Finance Student at Xavier University Seeking Experience in Financial Management</p>
-                    <p class="linkedin-card-stat">500+ connections</p>
-                    <a class="connect-btn" href="https://www.linkedin.com/in/sofiatroncone" target="_blank" rel="noopener noreferrer">
+                <p class="eyebrow reveal">Finance &middot; Xavier University</p>
+                <h1 class="reveal d1">Sofia J<br><em>Troncone</em></h1>
+                <p class="hero-lede reveal d2">
+                    First-generation finance student with working French and Italian, building experience where finance meets AI.
+                </p>
+                <div class="hero-actions reveal d3">
+                    <a class="btn btn-solid" href="#resume">View Resume</a>
+                    <a class="btn btn-ghost" href="https://www.linkedin.com/in/sofiatroncone" target="_blank" rel="noopener noreferrer">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.44-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM3.56 20.45h3.56V9H3.56v11.45Z"/></svg>
-                        <span>View Full Profile</span>
+                        LinkedIn
                     </a>
                 </div>
             </div>
-            <div class="connect-links">
-                <a class="connect-btn" href="mailto:troncones@xavier.edu">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13Zm2.2.5 7.8 6.2 7.8-6.2H4.2ZM20 7.3l-7.4 5.9a1 1 0 0 1-1.2 0L4 7.3v11.2h16V7.3Z"/></svg>
-                    <span>troncones@xavier.edu</span>
-                </a>
+            <div class="portrait reveal d2">
+                <img src="images/headshot.jpg" alt="Portrait of Sofia J Troncone">
             </div>
         </div>
+        <svg class="hero-chart" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+                <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#f4c9d6" stop-opacity="0.22"/>
+                    <stop offset="100%" stop-color="#f4c9d6" stop-opacity="0"/>
+                </linearGradient>
+            </defs>
+            <path class="area" d="M0,190 L80,182 L160,186 L240,170 L320,174 L400,158 L480,166 L560,140 L640,148 L720,128 L800,134 L880,110 L960,118 L1040,92 L1120,100 L1200,74 L1280,82 L1360,56 L1440,48 L1440,220 L0,220 Z"/>
+            <path class="line" d="M0,190 L80,182 L160,186 L240,170 L320,174 L400,158 L480,166 L560,140 L640,148 L720,128 L800,134 L880,110 L960,118 L1040,92 L1120,100 L1200,74 L1280,82 L1360,56 L1440,48"/>
+        </svg>
+    </header>
 
-        <div class="footer">
-            © 2026 Sofia Troncone
+    <div class="facts">
+        <div class="wrap">
+            <div class="facts-row reveal">
+                <div class="fact">
+                    <div class="fact-label">Education</div>
+                    <div class="fact-text">Williams College of Business</div>
+                    <div class="fact-sub">Xavier University</div>
+                </div>
+                <div class="fact">
+                    <div class="fact-label">Degree</div>
+                    <div class="fact-text">B.S.B.A., Finance</div>
+                    <div class="fact-sub">Expected May 2028</div>
+                </div>
+                <div class="fact">
+                    <div class="fact-label">Languages</div>
+                    <div class="fact-text">English, French, Italian</div>
+                    <div class="fact-sub">Working French and Italian</div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <main class="wrap">
+
+        <section class="block" id="experience">
+            <div class="section-head reveal">
+                <span class="section-num">01</span>
+                <h2>Experience</h2>
+            </div>
+            <p class="intro reveal">Seeking experience in financial management. Leadership and work to date:</p>
+            <div class="timeline">
+                <div class="t-item reveal">
+                    <div class="t-when">Jan 2026<br>Present</div>
+                    <article class="role">
+                        <span class="tag">Founder</span>
+                        <h3>Founding President</h3>
+                        <div class="role-org">Xavier University Frontier Labs</div>
+                        <p>Started and lead a student lab that builds AI chatbot tools for university departments. Oversee all lab verticals and produce the lab's marketing content.</p>
+                    </article>
+                </div>
+                <div class="t-item reveal">
+                    <div class="t-when">Jan 2026<br>Present</div>
+                    <article class="role">
+                        <span class="tag">Executive Board</span>
+                        <h3>Chief Technology Officer</h3>
+                        <div class="role-org">Xavier University Investment Club</div>
+                        <p>Run the club's Instagram content and reels and manage communication with guest speakers.</p>
+                    </article>
+                </div>
+                <div class="t-item reveal">
+                    <div class="t-when">2026</div>
+                    <article class="role">
+                        <span class="tag">Selected</span>
+                        <h3>AI at Work Cohort</h3>
+                        <div class="role-org">Xavier NEXT</div>
+                        <p>Selected for the first cohort, studying how AI is changing jobs and organizations. Continuing this fall in Managing AI and Emerging Technologies.</p>
+                    </article>
+                </div>
+                <div class="t-item reveal">
+                    <div class="t-when">2023<br>Present</div>
+                    <article class="role">
+                        <span class="tag">Independent</span>
+                        <h3>Brand Content Creator</h3>
+                        <div class="role-org">Instagram UGC</div>
+                        <p>Partner with brands to create lifestyle reels that promote and test products.</p>
+                    </article>
+                </div>
+                <div class="t-item reveal">
+                    <div class="t-when">2022<br>2023</div>
+                    <article class="role">
+                        <span class="tag">Appointed</span>
+                        <h3>Student Representative</h3>
+                        <div class="role-org">Town of Tonawanda Youth Board</div>
+                        <p>Chosen by town administration to represent Kenmore West High and help decide on education and recreation programs.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="block" id="voices">
+            <div class="section-head reveal">
+                <span class="section-num">02</span>
+                <h2>Top Voices</h2>
+            </div>
+            <p class="intro reveal">Founders and investors explaining their decisions in their own words.</p>
+            <div class="listen">
+                <div class="embed-frame reveal">
+                    <iframe src="https://open.spotify.com/embed/show/5Y1NyT6srGx38f5LINbH6c?utm_source=generator&theme=0" height="152" allowfullscreen loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="Moonshots with Peter Diamandis on Spotify"></iframe>
+                </div>
+                <div class="embed-frame reveal d1">
+                    <iframe src="https://open.spotify.com/embed/show/3mliji9352UAk3XnWElnDV?utm_source=generator&theme=0" height="152" allowfullscreen loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="My First Million on Spotify"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section class="block" id="resume">
+            <div class="section-head reveal">
+                <span class="section-num">03</span>
+                <h2>Resume</h2>
+            </div>
+            <div class="resume-card reveal">
+                <embed src="files/Sofia-Troncone-Resume.pdf#toolbar=0&navpanes=0&scrollbar=0" type="application/pdf" class="resume-viewer">
+            </div>
+            <div class="resume-actions">
+                <a class="btn btn-ghost" href="files/Sofia-Troncone-Resume.pdf" target="_blank" rel="noopener noreferrer">Open PDF</a>
+            </div>
+        </section>
+
+        <section class="block" id="posts">
+            <div class="section-head reveal">
+                <span class="section-num">04</span>
+                <h2>Recent Posts</h2>
+            </div>
+            <div class="posts">
+                <div class="reveal">
+                    <div class="post-frame">
+                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7463357477745631232" width="100%" height="620" frameborder="0" allowfullscreen title="Sofia Troncone's LinkedIn post on incentivization and the future of work"></iframe>
+                    </div>
+                    <a class="post-link" href="https://www.linkedin.com/feed/update/urn:li:share:7463357477745631232" target="_blank" rel="noopener noreferrer">View on LinkedIn &rsaquo;</a>
+                </div>
+                <div class="reveal d1">
+                    <div class="post-frame">
+                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7458191680043814912" width="100%" height="750" frameborder="0" allowfullscreen title="Sofia Troncone's LinkedIn post on the Xavier NEXT AI at Work cohort"></iframe>
+                    </div>
+                    <a class="post-link" href="https://www.linkedin.com/feed/update/urn:li:share:7458191680043814912" target="_blank" rel="noopener noreferrer">View on LinkedIn &rsaquo;</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="connect reveal" id="connect">
+            <p class="eyebrow">Connect</p>
+            <h2>Let's talk.</h2>
+            <p>Open to finance internships and conversations with people in the field.</p>
+            <div class="hero-actions">
+                <a class="btn btn-solid" href="mailto:troncones@xavier.edu">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13Zm2.2.5 7.8 6.2 7.8-6.2H4.2ZM20 7.3l-7.4 5.9a1 1 0 0 1-1.2 0L4 7.3v11.2h16V7.3Z"/></svg>
+                    troncones@xavier.edu
+                </a>
+                <a class="btn btn-ghost" href="https://www.linkedin.com/in/sofiatroncone" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.44-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM3.56 20.45h3.56V9H3.56v11.45Z"/></svg>
+                    LinkedIn
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>&copy; 2026 Sofia Troncone</footer>
+
+    <script>
+        (function () {
+            var nav = document.getElementById('nav');
+            function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 10); }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+
+            var items = document.querySelectorAll('.reveal');
+            if (!('IntersectionObserver' in window)) {
+                items.forEach(function (el) { el.classList.add('in'); });
+                return;
+            }
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+            items.forEach(function (el) { io.observe(el); });
+        })();
+    </script>
 </body>
 </html>
