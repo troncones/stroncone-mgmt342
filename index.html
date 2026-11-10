@@ -21,6 +21,7 @@
             --sand: #f6efe8;
             --taupe: #ecdfd3;
             --gold: #b8976a;
+            --sage: #7f9a83;
             --serif: 'Playfair Display', Georgia, serif;
             --sans: 'Lato', Helvetica, Arial, sans-serif;
             --wrap: 1000px;
@@ -78,7 +79,7 @@
             position: relative;
             overflow: hidden;
             background: linear-gradient(180deg, var(--cream) 0%, var(--soft-white) 100%);
-            padding: 110px 0 120px;
+            padding: 110px 0 250px;
         }
         .hero::before {
             content: "";
@@ -163,7 +164,90 @@
         .fact-sub { font-size: 0.9rem; color: var(--muted); margin-top: 2px; }
 
         /* Hero chart line */
-        .hero-chart { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 220px; pointer-events: none; }
+        .chart-zone { position: absolute; left: 0; right: 0; bottom: 0; height: 200px; z-index: 1; }
+        .hero-chart { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+        .hero-chart .forecast { fill: none; stroke: var(--gold); stroke-opacity: 0.6; stroke-width: 1.5; stroke-dasharray: 5 7; opacity: 0; animation: pop 0.8s ease 3.5s forwards; }
+
+        .marker {
+            position: absolute;
+            width: 26px; height: 26px;
+            margin: -13px 0 0 -13px;
+            border: none; background: transparent; padding: 0;
+            cursor: pointer;
+            opacity: 0;
+            animation: pop 0.5s ease forwards;
+        }
+        .marker::before {
+            content: "";
+            position: absolute; left: 50%; top: 50%;
+            width: 10px; height: 10px; margin: -5px 0 0 -5px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 2px solid var(--gold);
+            transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+        }
+        .marker:hover::before, .marker:focus-visible::before, .marker.active::before { transform: scale(1.5); background: var(--brown); border-color: var(--brown); }
+        .marker:focus-visible { outline: none; }
+        .marker.now::after {
+            content: "";
+            position: absolute; left: 50%; top: 50%;
+            width: 10px; height: 10px; margin: -5px 0 0 -5px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            animation: pulse 2.4s ease-out 4s infinite;
+        }
+        .marker.projected::before { border-style: dashed; background: var(--cream); }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(3.2); opacity: 0; } }
+
+        .chart-guide {
+            position: absolute; bottom: 0; width: 1px;
+            background: linear-gradient(180deg, var(--gold), rgba(184, 151, 106, 0));
+            opacity: 0; transition: opacity 0.2s ease;
+            pointer-events: none;
+        }
+        .chart-guide.show { opacity: 0.6; }
+
+        .chart-tip {
+            position: absolute;
+            min-width: 210px; max-width: 260px;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 12px 16px 13px;
+            box-shadow: 0 16px 40px rgba(74, 52, 40, 0.14);
+            pointer-events: none;
+            opacity: 0;
+            transform: translate(-50%, calc(-100% - 14px)) translateY(6px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            z-index: 3;
+        }
+        .chart-tip.show { opacity: 1; transform: translate(-50%, calc(-100% - 14px)); }
+        .tip-date { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 3px; }
+        .tip-title { font-family: var(--serif); font-weight: 600; font-size: 1.02rem; color: var(--brown); line-height: 1.25; }
+        .tip-org { font-size: 0.85rem; color: var(--muted); }
+        .chart-hint {
+            position: absolute; left: 32px; top: 70px;
+            font-family: var(--serif); font-style: italic; font-size: 0.85rem; color: var(--muted);
+            opacity: 0; animation: pop 0.8s ease 4.2s forwards;
+        }
+
+        /* Ticker */
+        .ticker {
+            margin-top: 56px;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            background: var(--white);
+            overflow: hidden;
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+        }
+        .ticker-track { display: flex; width: max-content; animation: ticker 55s linear infinite; }
+        .ticker:hover .ticker-track { animation-play-state: paused; }
+        .tick { display: flex; align-items: center; gap: 10px; padding: 17px 36px; white-space: nowrap; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; border-right: 1px solid var(--line); }
+        .tick-sym { font-weight: 700; color: var(--brown); }
+        .tick-up { color: var(--sage); font-size: 0.65rem; }
+        .tick-name { color: var(--muted); font-weight: 400; }
+        @keyframes ticker { to { transform: translateX(-50%); } }
         .hero-chart .area { fill: url(#chartFill); }
         .hero-chart .line { fill: none; stroke: var(--gold); stroke-opacity: 0.55; stroke-width: 1.5; stroke-dasharray: 2600; stroke-dashoffset: 2600; animation: draw 3.2s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards; }
         .hero-chart .dot { fill: var(--pink); opacity: 0; animation: pop 0.6s ease 3.4s forwards; }
@@ -332,13 +416,20 @@
             .reveal { opacity: 1; transform: none; transition: none; }
             .role, .btn, .role::before { transition: none; }
             .hero-chart .line { animation: none; stroke-dashoffset: 0; }
+            .hero-chart .forecast, .marker, .chart-hint { animation: none; opacity: 1; }
+            .marker.now::after { animation: none; }
+            .ticker { overflow-x: auto; }
+            .ticker-track { animation: none; }
             .hero-glow { display: none; }
         }
 
         /* ---------- Responsive ---------- */
         @media (max-width: 860px) {
             .nav-links { display: none; }
-            .hero { padding: 70px 0 100px; }
+            .hero { padding: 70px 0 150px; }
+            .chart-zone { height: 130px; }
+            .marker, .chart-tip, .chart-guide, .chart-hint { display: none; }
+            .ticker { margin-top: 40px; }
             .hero .wrap { grid-template-columns: 1fr; gap: 50px; text-align: center; }
             .eyebrow { justify-content: center; }
             .hero-lede { margin-left: auto; margin-right: auto; }
@@ -371,7 +462,7 @@
         <div class="wrap">
             <a class="nav-mark" href="#top">Sofia Troncone</a>
             <ul class="nav-links">
-                <li><a href="#experience">Experience</a></li>
+                <li><a href="#leadership">Leadership</a></li>
                 <li><a href="#voices">Top Voices</a></li>
                 <li><a href="#resume">Resume</a></li>
                 <li><a href="#posts">Posts</a></li>
@@ -401,16 +492,22 @@
                 <img src="images/headshot.jpg" alt="Portrait of Sofia J Troncone">
             </div>
         </div>
-        <svg class="hero-chart" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-                <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#f4c9d6" stop-opacity="0.22"/>
-                    <stop offset="100%" stop-color="#f4c9d6" stop-opacity="0"/>
-                </linearGradient>
-            </defs>
-            <path class="area" d="M0,190 L80,182 L160,186 L240,170 L320,174 L400,158 L480,166 L560,140 L640,148 L720,128 L800,134 L880,110 L960,118 L1040,92 L1120,100 L1200,74 L1280,82 L1360,56 L1440,48 L1440,220 L0,220 Z"/>
-            <path class="line" d="M0,190 L80,182 L160,186 L240,170 L320,174 L400,158 L480,166 L560,140 L640,148 L720,128 L800,134 L880,110 L960,118 L1040,92 L1120,100 L1200,74 L1280,82 L1360,56 L1440,48"/>
-        </svg>
+        <div class="chart-zone" id="chart-zone">
+            <svg class="hero-chart" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                    <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#b8976a" stop-opacity="0.16"/>
+                        <stop offset="60%" stop-color="#f4c9d6" stop-opacity="0.10"/>
+                        <stop offset="100%" stop-color="#f4c9d6" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+                <path class="area" d="M0,178 L60,172 L110,176 L160,160 L200,140 L240,150 L280,158 L330,146 L380,134 L430,118 L470,128 L520,138 L570,124 L620,112 L660,98 L700,108 L750,118 L800,104 L850,92 L900,80 L940,90 L980,84 L1040,66 L1080,76 L1120,70 L1180,52 L1180,200 L0,200 Z"/>
+                <path class="line" d="M0,178 L60,172 L110,176 L160,160 L200,140 L240,150 L280,158 L330,146 L380,134 L430,118 L470,128 L520,138 L570,124 L620,112 L660,98 L700,108 L750,118 L800,104 L850,92 L900,80 L940,90 L980,84 L1040,66 L1080,76 L1120,70 L1180,52"/>
+                <path class="forecast" d="M1180,52 L1250,46 L1320,36 L1400,24"/>
+            </svg>
+            <div class="chart-guide" id="chart-guide"></div>
+            <div class="chart-tip" id="chart-tip" role="status" aria-live="polite"></div>
+        </div>
     </header>
 
     <div class="facts">
@@ -435,14 +532,26 @@
         </div>
     </div>
 
+    <div class="ticker" id="ticker" aria-label="Career highlights">
+        <div class="ticker-track" id="ticker-track">
+            <div class="tick"><span class="tick-sym">XFL</span><span class="tick-up">&#9650;</span><span class="tick-name">Founding President</span></div>
+            <div class="tick"><span class="tick-sym">XUIC</span><span class="tick-up">&#9650;</span><span class="tick-name">Chief Technology Officer</span></div>
+            <div class="tick"><span class="tick-sym">NEXT</span><span class="tick-up">&#9650;</span><span class="tick-name">AI at Work Cohort</span></div>
+            <div class="tick"><span class="tick-sym">FIN</span><span class="tick-up">&#9650;</span><span class="tick-name">B.S.B.A. Class of 2028</span></div>
+            <div class="tick"><span class="tick-sym">LANG</span><span class="tick-up">&#9650;</span><span class="tick-name">English &middot; Fran&ccedil;ais &middot; Italiano</span></div>
+            <div class="tick"><span class="tick-sym">UGC</span><span class="tick-up">&#9650;</span><span class="tick-name">Brand Content Creator</span></div>
+            <div class="tick"><span class="tick-sym">TOT</span><span class="tick-up">&#9650;</span><span class="tick-name">Youth Board Representative</span></div>
+        </div>
+    </div>
+
     <main class="wrap">
 
-        <section class="block" id="experience">
+        <section class="block" id="leadership">
             <div class="section-head reveal">
                 <span class="section-num">01</span>
-                <h2>Experience</h2>
+                <h2>Leadership Roles</h2>
             </div>
-            <p class="intro reveal">Seeking experience in financial management. Leadership and work to date:</p>
+            <p class="intro reveal">Seeking experience in financial management. Current leadership:</p>
             <div class="timeline">
                 <div class="t-item reveal">
                     <div class="t-when">Jan 2026<br>Present</div>
@@ -469,24 +578,6 @@
                         <h3>AI at Work Cohort</h3>
                         <div class="role-org">Xavier NEXT</div>
                         <p>Selected for the first cohort, studying how AI is changing jobs and organizations. Continuing this fall in Managing AI and Emerging Technologies.</p>
-                    </article>
-                </div>
-                <div class="t-item reveal">
-                    <div class="t-when">2023<br>Present</div>
-                    <article class="role">
-                        <span class="tag">Independent</span>
-                        <h3>Brand Content Creator</h3>
-                        <div class="role-org">Instagram UGC</div>
-                        <p>Partner with brands to create lifestyle reels that promote and test products.</p>
-                    </article>
-                </div>
-                <div class="t-item reveal">
-                    <div class="t-when">2022<br>2023</div>
-                    <article class="role">
-                        <span class="tag">Appointed</span>
-                        <h3>Student Representative</h3>
-                        <div class="role-org">Town of Tonawanda Youth Board</div>
-                        <p>Chosen by town administration to represent Kenmore West High and help decide on education and recreation programs.</p>
                     </article>
                 </div>
             </div>
@@ -625,6 +716,77 @@
                 tx = e.clientX - r.left;
                 ty = e.clientY - r.top;
                 if (!running) { running = true; requestAnimationFrame(tick); }
+            });
+        })();
+
+        // Career chart milestones
+        (function () {
+            var VB_W = 1440;
+            var points = [
+                { x: 200,  y: 140, date: '2022 to 2023', title: 'Student Representative', org: 'Town of Tonawanda Youth Board' },
+                { x: 430,  y: 118, date: '2023', title: 'Brand Content Creator', org: 'Instagram UGC' },
+                { x: 660,  y: 98,  date: 'Fall 2024', title: 'Began at Xavier', org: 'Williams College of Business' },
+                { x: 900,  y: 80,  date: 'Jan 2026', title: 'Founding President', org: 'Xavier University Frontier Labs' },
+                { x: 1040, y: 66,  date: 'Jan 2026', title: 'Chief Technology Officer', org: 'Xavier University Investment Club' },
+                { x: 1180, y: 52,  date: '2026', title: 'AI at Work Cohort', org: 'Xavier NEXT', kind: 'now' },
+                { x: 1400, y: 24,  date: 'May 2028', title: 'B.S.B.A., Finance', org: 'Expected graduation', kind: 'projected' }
+            ];
+            var zone = document.getElementById('chart-zone');
+            var tip = document.getElementById('chart-tip');
+            var guide = document.getElementById('chart-guide');
+
+            var hint = document.createElement('div');
+            hint.className = 'chart-hint';
+            hint.textContent = 'Hover the milestones';
+            zone.appendChild(hint);
+
+            function show(p, el) {
+                tip.innerHTML = '<div class="tip-date"></div><div class="tip-title"></div><div class="tip-org"></div>';
+                tip.children[0].textContent = p.date;
+                tip.children[1].textContent = p.title;
+                tip.children[2].textContent = p.org;
+                var w = zone.clientWidth;
+                var px = p.x / VB_W * w;
+                var half = tip.offsetWidth / 2;
+                var left = Math.min(Math.max(px, half + 12), w - half - 12);
+                tip.style.left = left + 'px';
+                tip.style.top = p.y + 'px';
+                tip.classList.add('show');
+                guide.style.left = px + 'px';
+                guide.style.top = p.y + 'px';
+                guide.classList.add('show');
+                el.classList.add('active');
+                hint.style.display = 'none';
+            }
+            function hide(el) {
+                tip.classList.remove('show');
+                guide.classList.remove('show');
+                el.classList.remove('active');
+            }
+
+            points.forEach(function (p) {
+                var b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'marker' + (p.kind ? ' ' + p.kind : '');
+                b.style.left = (p.x / VB_W * 100) + '%';
+                b.style.top = p.y + 'px';
+                b.style.animationDelay = (0.4 + 3.2 * Math.min(p.x, 1180) / 1180 + (p.kind === 'projected' ? 0.6 : 0)).toFixed(2) + 's';
+                b.setAttribute('aria-label', p.date + ': ' + p.title + ', ' + p.org);
+                b.addEventListener('mouseenter', function () { show(p, b); });
+                b.addEventListener('focus', function () { show(p, b); });
+                b.addEventListener('mouseleave', function () { hide(b); });
+                b.addEventListener('blur', function () { hide(b); });
+                zone.appendChild(b);
+            });
+        })();
+
+        // Ticker: duplicate items for a seamless loop
+        (function () {
+            var track = document.getElementById('ticker-track');
+            Array.prototype.slice.call(track.children).forEach(function (t) {
+                var c = t.cloneNode(true);
+                c.setAttribute('aria-hidden', 'true');
+                track.appendChild(c);
             });
         })();
     </script>
